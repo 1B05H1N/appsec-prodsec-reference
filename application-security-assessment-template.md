@@ -56,24 +56,24 @@ Clear documentation of what aspects of the product were assessed and what specif
 This is a high-level checklist that includes what should be included in an application/product security assessment.
 
 - [ ] Pre-assessment Phase
-- [ ] Business Context Analysis
-- [ ] Threat Modeling
+       - [ ] Business Context Analysis
+       - [ ] Threat Modeling
 - [ ] Information Gathering
-- [ ] Assessment Phase
-- [ ] Static Analysis
-- [ ] Dynamic Analysis
+       - [ ] Assessment Phase
+       - [ ] Static Analysis
+       - [ ] Dynamic Analysis
 - [ ] Cloud Services Assessment (If applicable)
 - [ ] Data Encryption and Storage
 - [ ] Mobile Application Assessment (If applicable)
 - [ ] API Security
 - [ ] Infrastructure Assessment
-- [ ] Secure Configuration and Hardening
-- [ ] Dependency Analysis
+       - [ ] Secure Configuration and Hardening
+       - [ ] Dependency Analysis
 - [ ] Identity and Access Management
 - [ ] Compliance Check
 - [ ] Incident Response Mechanism
 - [ ] Post-Assessment Phase
-- [ ] Reporting
+       - [ ] Reporting
 - [ ] Vendor Management
 - [ ] Remediation
 - [ ] Follow-Up/Retrospective
@@ -134,17 +134,12 @@ Code reviews are an effective way to get feedback on solutions, find possible de
 
 Dynamic analysis refers to the evaluation of a program, application, or system while it is running or during its execution. This process involves identifying vulnerabilities, errors, or other issues that may only become apparent during a program's operation.
 
-Review DAST details for findings if it’s been scanned before
-
-Execute common web application attacks
-
-Analyze input validation
-
-Test file upload functionality
-
-Assess rate-limiting and anti-automation controls
-
-Validate HTTPS configuration and other encryption measures
+- [ ] Review DAST details for findings if it’s been scanned before
+- [ ] Execute common web application attacks
+- [ ] Analyze input validation
+- [ ] Test file upload functionality
+- [ ] Assess rate-limiting and anti-automation controls
+- [ ] Validate HTTPS configuration and other encryption measures
 
 #### Cloud Services Assessment
 
@@ -355,10 +350,10 @@ Verification of compliance with relevant security standards, regulations, or ind
 This section evaluates the organization's preparedness to effectively manage and respond to security incidents that could impact the application or system in focus.
 
 - Evaluation of the organization's readiness to respond to security incidents
-- Recommendations for improving incident response
-- This should include a measure of team readiness (is the IR team trained and aware of the process for responding to an incident involving the application?)
+       - Recommendations for improving incident response
+       - This should include a measure of team readiness (is the IR team trained and aware of the process for responding to an incident involving the application?)
 - Ensure proper logging and monitoring is in place
-- This includes ensuring that logs are maintained for critical system activities as to not cause false positives
+       - This includes ensuring that logs are maintained for critical system activities as to not cause false positives
 
 ### Security Strengths
 
