@@ -1,3 +1,4 @@
+
 # Overview
 
 This document is a template of what should be included in an application/product security assessment. The output from a security assessment is a comprehensive report that documents the findings, recommendations, and insights obtained from the assessment of a product's security. It is a critical document that serves as a reference for stakeholders, including developers, management, and security teams, to understand the security posture of the product and prioritize remediation efforts.
