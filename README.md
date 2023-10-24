@@ -1,7 +1,7 @@
 
 # AppSec-ProdSec Materials
 
-Welcome to `appsec-prodsec-reference`! This repository is a collection of materials, documents, and insights that I've gathered based on my personal experiences in application and product security.
+Welcome to `appsec-prodsec-reference`! This repository is a collection of materials, documents, and insights gathered based on my personal experiences in application and product security.
 
 ## Disclaimer
 
