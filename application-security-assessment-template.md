@@ -7,7 +7,7 @@ This document is a template of what should be included in an application/product
 
 The application/product security assessment template can be used when completing an assessment.
 
-### Scope and Objectives**
+### **Scope and Objectives**
 
 Clear documentation of what aspects of the product were assessed and what specific security objectives were pursued.
 
