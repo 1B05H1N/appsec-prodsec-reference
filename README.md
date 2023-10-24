@@ -1,3 +1,4 @@
+
 # AppSec-ProdSec Materials
 
 Welcome to `appsec-prodsec-reference`! This repository is a collection of materials, documents, and insights that I've gathered based on my personal experiences in application and product security.
@@ -12,10 +13,12 @@ This repository serves as a knowledge base, providing various documents and guid
 
 ## Usage
 
-Everyone is welcome to explore, fork, or clone this repository. Adaptation and modification of the content to fit specific needs or unique contexts is encouraged. Security practices are most effective when they are tailored to specific scenarios, environments, roles, and responsibilities.
+Everyone is welcome to explore, fork, or clone this repository. Adaptation and modification of the content to fit specific needs or unique contexts is encouraged. However, please ensure you respect the licensing agreement associated with this repository. Security practices are most effective when they are tailored to specific scenarios, environments, roles, and responsibilities.
 
 ## Contributing
 
-While this is a repository based on personal insights, collaboration and contributions are welcome. If you have suggestions, improvements, or valuable insights that could augment the quality and depth of this resource, please feel free to propose changes/or message me.
+While this is a repository based on personal insights, collaboration and contributions are welcome. If you have suggestions, improvements, or valuable insights that could augment the quality and depth of this resource, please feel free to propose changes or message me.
+
+Please note that your contributions will be subject to the repository's license. By participating, you agree to adhere to its terms.
 
 Thank you for visiting!
