@@ -134,17 +134,12 @@ Code reviews are an effective way to get feedback on solutions, find possible de
 
 Dynamic analysis refers to the evaluation of a program, application, or system while it is running or during its execution. This process involves identifying vulnerabilities, errors, or other issues that may only become apparent during a program's operation.
 
-Review DAST details for findings if it’s been scanned before
-
-Execute common web application attacks
-
-Analyze input validation
-
-Test file upload functionality
-
-Assess rate-limiting and anti-automation controls
-
-Validate HTTPS configuration and other encryption measures
+- [ ] Review DAST details for findings if it’s been scanned before
+- [ ] Execute common web application attacks
+- [ ] Analyze input validation
+- [ ] Test file upload functionality
+- [ ] Assess rate-limiting and anti-automation controls
+- [ ] Validate HTTPS configuration and other encryption measures
 
 #### Cloud Services Assessment
 
