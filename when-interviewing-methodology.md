@@ -1042,25 +1042,25 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 ### 1. Can you explain the importance of a secure container image pipeline and how you would implement it?
 
-### **Understanding of Secure Image Creation**
+#### **Understanding of Secure Image Creation**
 
 - Expect the candidate to discuss the importance of using trusted base images, regularly updating and scanning for vulnerabilities, and implementing secure image creation practices.
 
-### **Registry Security**
+#### **Registry Security**
 
 - They should mention using private registries, enabling security scans on push, and implementing image signing and verification.
 
-### **CI/CD Integration**
+#### **CI/CD Integration**
 
 - Look for a mention of integrating security checks into the CI/CD pipeline, such as static analysis, dependency scanning, and image scanning.
 
 ### 2. How would you isolate sensitive container workloads in a shared Kubernetes environment?
 
-### **Network Policies**
+#### **Network Policies**
 
 - Candidates should discuss implementing network policies that restrict communication between pods.
 
-### **Runtime Security**
+#### **Runtime Security**
 
 - Expect them to talk about using security contexts, PodSecurityPolicies, or admission controllers to enforce secure runtime behaviors.
 
@@ -1070,117 +1070,117 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 ### 3. What are the risks associated with container orchestration and how would you mitigate them?
 
-### **Orchestration Access Controls**
+#### **Orchestration Access Controls**
 
 - The candidate should emphasize the importance of robust access controls to the orchestration platform, following the principle of least privilege.
 
-### **Cluster Configuration**
+#### **Cluster Configuration**
 
 - Expect discussion around ensuring a secure configuration for the orchestrator, referring to benchmarks like the CIS Benchmarks for Kubernetes.
 
-### **Monitoring and Logging**
+#### **Monitoring and Logging**
 
 - They should also mention centralized logging and monitoring of the orchestration environment for anomalous or malicious activity.
 
 ### 4. How do you manage secrets in a containerized environment?
 
-### **Secrets Management Solutions**
+#### **Secrets Management Solutions**
 
 - Candidates should mention using dedicated secrets management tools like HashiCorp Vault, AWS Secrets Manager, or using the built-in secrets objects in Kubernetes.
 
-### **Encryption**
+#### **Encryption**
 
 - They should discuss encrypting secrets at rest and in transit.
 
-### **Access Controls**
+#### **Access Controls**
 
 - Expect them to talk about strict access controls to secrets, including the use of service accounts or IAM roles for automated access in a cloud environment.
 
 ### 5. How can you prevent and detect security incidents within a containerized environment?
 
-### **Security at Runtime**
+#### **Security at Runtime**
 
 - The candidate should discuss implementing runtime security solutions that can detect and prevent malicious activity within running containers.
 
-### **Monitoring and Alerting**
+#### **Monitoring and Alerting**
 
 - They should highlight the importance of monitoring system calls and network activity, with integrated alerting for suspicious activities.
 
-### **Forensics and Incident Response**
+#### **Forensics and Incident Response**
 
 - Expect them to address the need for an incident response plan specific to the containerized environment, including forensics capabilities for containers.
 
 ### 6. Explain the process of regularly updating and patching containers and how it differs from traditional VMs
 
-### **Immutable Infrastructure**
+#### **Immutable Infrastructure**
 
 - The candidate should talk about the concept of immutable infrastructure, where updates are made by replacing containers rather than patching running containers.
 
-### **CI/CD Pipelines**
+#### **CI/CD Pipelines**
 
 - They should discuss the role of CI/CD pipelines in automating the build, test, and deployment of containers, which should include security scanning and automated tests.
 
-### **Rolling Updates and Rollbacks**
+#### **Rolling Updates and Rollbacks**
 
 - Expect a mention of orchestration features like rolling updates and rollbacks to ensure availability during deployments.
 
 ### 7. How do you handle logging and monitoring in a container environment to ensure security and compliance?
 
-### **Centralized Logging Solutions**
+#### **Centralized Logging Solutions**
 
 - Candidates should discuss the use of centralized logging solutions that can aggregate logs from all containers, regardless of the node they reside on.
 
-### **Log Analysis**
+#### **Log Analysis**
 
 - They should emphasize the importance of real-time log analysis for detecting suspicious activities and mention tools or platforms they've used for this purpose (e.g., ELK stack, Splunk, etc.).
 
-### **Compliance Requirements**
+#### **Compliance Requirements**
 
 - Discuss how logging and monitoring can be aligned with compliance requirements, ensuring logs are stored securely, with controlled access, and for the necessary duration.
 
 ### 8. What specific strategies and tools do you use to perform vulnerability scanning in container images and running containers?
 
-### **Static Analysis**
+#### **Static Analysis**
 
 - Candidates should mention tools used for scanning container images for known vulnerabilities before deployment (e.g., Clair, Trivy, Anchore).
 
-### **Dynamic Analysis**
+#### **Dynamic Analysis**
 
 - Discuss the use of dynamic analysis tools to monitor running containers for anomalies or signs of compromise.
 
-### **Integration with CI/CD**
+#### **Integration with CI/CD**
 
 - They should talk about how these tools can be integrated into the CI/CD pipeline to prevent vulnerable containers from being deployed.
 
 ### 9. Can you explain the concept of "least privilege" in the context of a containerized application and how you would enforce it?
 
-### **Access Control**
+#### **Access Control**
 
 - Candidates should discuss setting up role-based access controls (RBAC) in the container orchestration system to ensure entities have the minimum level of access required.
 
-### **Security Contexts and Policies**
+#### **Security Contexts and Policies**
 
 - They should mention configuring security contexts for pods and containers in Kubernetes, limiting capabilities of the container runtime.
 
-### **Network Policy**
+#### **Network Policy**
 
 - Discuss the implementation of network policies to control the traffic allowed to and from pods in a Kubernetes cluster.
 
 ### 10. How would you secure the container orchestration platform, like Kubernetes, in an enterprise environment?
 
-### **Authentication and Authorization**
+#### **Authentication and Authorization**
 
 - Candidates should discuss integrating Kubernetes with enterprise authentication systems, using RBAC for granular access control, and potentially integrating with a service like OPA (Open Policy Agent) for additional policy enforcement.
 
-### **Hardening Nodes**
+#### **Hardening Nodes**
 
 - Discuss hardening worker nodes (e.g., applying security patches, disabling unnecessary services) and using secure node configurations.
 
-### **Securing the Control Plane**
+#### **Securing the Control Plane**
 
 - They should emphasize the importance of securing the control plane, using strong encryption for data at rest and in transit, and regularly updating and patching the orchestration platform.
 
-### **Network Security**
+#### **Network Security**
 
 - Mention strategies for securing communication within the cluster and with external services, such as network policies, firewalls, and possibly service meshes for enhanced security and observability.
 
@@ -1190,7 +1190,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 ### 1. Describe an instance where you disagreed with a team's approach to application security. How did you handle the disagreement, and what was the outcome?
 
-### **Effective Communication and Persuasion**
+#### **Effective Communication and Persuasion**
 
 - Look for candidates who demonstrate that they can respectfully challenge ideas, present evidence-based alternatives, and work towards a consensus.
 - Outcome-Oriented
@@ -1206,7 +1206,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 ### 3. Can you discuss a time when a product you were responsible for faced a security incident? How did you react, and what role did you play in resolving the situation?
 
-### Incident Response Skills
+#### Incident Response Skills
 
 - Strong candidates should outline their direct actions during the incident, demonstrating their role in containment, mitigation, communication, and post-incident analysis.
 - Learning and Improvement
@@ -1228,7 +1228,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 - Look for candidates who show a proactive attitude towards security, bringing new ideas to the table. The key here is the candidate’s ability to innovate and their process for implementing change.
 
-### **Team Collaboration and Leadership**
+#### **Team Collaboration and Leadership**
 
 - Strong answers should delve into how they got buy-in from the team or management, collaborated across departments, and any measurable improvements resulting from the practice.
 
