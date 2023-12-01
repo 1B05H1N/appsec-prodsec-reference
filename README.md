@@ -3,6 +3,8 @@
 
 Welcome to `appsec-prodsec-reference`! This repository is a collection of materials, documents, and insights gathered based on my personal experiences in application and product security.
 
+If this helps just one person, then I accomplished my goal.
+
 ## Disclaimer
 
 > 🚨 **Important Note**: The contents and recommendations in this repository are derived solely from my personal experiences and knowledge. They are not endorsed by, nor do they represent, the official methodologies or requirements of any organization I have been associated with, past or present. Use this information as a reference at your own risk and discretion. It's important to tailor these materials and insights to your unique contexts and experiences.
