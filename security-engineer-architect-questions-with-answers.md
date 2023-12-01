@@ -1,4 +1,4 @@
-# Possible interview methodology
+# Possible interview questions/topics
 
 > **Note**: this is based off ***my personal experience/recommendations*** and
 > does not in any way represent the required/official methodology used
