@@ -252,7 +252,7 @@ It's important to note that these answers should be tailored to the reader's exp
   - **Secure Cookies**: Use secure flags on cookies to ensure they are only sent over encrypted connections.
   - **Content Security Policy (CSP)**: Implement CSP headers to mitigate XSS risks by specifying which dynamic resources are allowed to load.
 
-## OWASP Top 10, Pentesting, and Web Applications
+### OWASP Top 10, Pentesting, and Web Applications
 
 #### Differentiate XSS from CSRF
 - **XSS (Cross-Site Scripting)**: 
