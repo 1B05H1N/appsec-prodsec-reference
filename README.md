@@ -1,26 +1,45 @@
-
 # AppSec/ProdSec Reference
 
-Welcome to `appsec-prodsec-reference`! This repository is a collection of materials, documents, and insights gathered based on my personal experiences in application and product security.
+Welcome to `appsec-prodsec-reference`! This repository is a curated collection of resources, insights, and best practices from my personal experiences in application and product security.
 
-If this helps just one person, then I accomplished my goal.
+> **Goal**: If this helps even one person enhance their security practices or knowledge, I will have achieved my objective.
+
+---
 
 ## Disclaimer
 
-> 🚨 **Important Note**: The contents and recommendations in this repository are derived solely from my personal experiences and knowledge. They are not endorsed by, nor do they represent, the official methodologies or requirements of any organization I have been associated with, past or present. Use this information as a reference at your own risk and discretion. It's important to tailor these materials and insights to your unique contexts and experiences.
+> 🚨 **Important Notice:**  
+The information in this repository is based on my personal experiences and knowledge. It does **not** reflect the official policies, methodologies, or requirements of any organization—past or present—with which I am or have been associated.
+
+This repository is provided **as-is**, with no guarantees of accuracy, completeness, or suitability for any specific purpose. Security is a complex and ever-changing field, and while I strive to provide accurate and useful information, errors and outdated details are possible. **Use this material at your own risk** and always validate its relevance to your unique context and requirements.  
+
+---
+
+## License
+
+This repository is shared under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)**.  
+
+You are free to:
+
+- **Share**: Copy and redistribute the material.
+- **Adapt**: Remix, transform, or build upon the material.
+
+Under the following terms:
+
+- **Attribution**: Provide appropriate credit and indicate any changes.
+- **Non-Commercial**: Do not use the material for commercial purposes.
+- **ShareAlike**: Distribute contributions under the same license.
+
+---
 
 ## Overview
 
-This repository serves as a knowledge base, providing various documents and guidelines that span numerous aspects of application and product security. The intention is to offer practical and experiential knowledge which can serve as a starting point or reference for security enthusiasts and professionals alike.
+This repository serves as a practical reference for application and product security, offering guidance on secure design, development, and operational practices. It aims to support security professionals and enthusiasts by providing actionable insights and proven methods.
+
+---
 
 ## Usage
 
-Everyone is welcome to explore, fork, or clone this repository. Adaptation and modification of the content to fit specific needs or unique contexts is encouraged. However, please ensure you respect the licensing agreement associated with this repository. Security practices are most effective when they are tailored to specific scenarios, environments, roles, and responsibilities.
+Feel free to explore, fork, or clone this repository to fit your specific needs. Security practices should be tailored to your environment and objectives. Use this repository as a starting point, but validate and customize the content for your unique requirements.
 
-## Contributing
-
-While this is a repository based on personal insights, collaboration and contributions are welcome. If you have suggestions, improvements, or valuable insights that could augment the quality and depth of this resource, please feel free to propose changes or message me.
-
-Please note that your contributions will be subject to the repository's license. By participating, you agree to adhere to its terms.
-
-Thank you for visiting!
+---
