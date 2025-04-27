@@ -4,6 +4,17 @@
 
 Secure design principles are foundational guidelines for designing and building applications to ensure they are resilient to threats and vulnerabilities. These principles reduce risk by ensuring software is designed, developed, and maintained securely.
 
+## Table of Contents
+- [General Web Application/Product Security Checklist](#general-web-applicationproduct-security-checklist)
+- [Security Governance](#security-governance)
+- [The Zero Trust Model](#the-zero-trust-model)
+- [Authentication and Authorization](#authentication-and-authorization)
+- [Data Protection](#data-protection)
+- [Secure Development Lifecycle](#secure-development-lifecycle)
+- [Security Testing](#security-testing)
+- [Incident Response](#incident-response)
+- [Compliance and Regulatory Requirements](#compliance-and-regulatory-requirements)
+
 ---
 
 ## General Web Application/Product Security Checklist
