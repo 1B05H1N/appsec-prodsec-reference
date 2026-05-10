@@ -2,7 +2,7 @@
 
 > **Note**: This document is based on **personal experience and recommendations** and does not represent the required or official methodology used at any place I've worked or currently work.
 
-This document serves as a **template** for conducting an application or product security assessment. The primary output of a security assessment is a comprehensive report that documents findings, recommendations, and insights into the product's security posture. This document is a critical resource for stakeholders—including developers, management, and security teams—to understand the product's security risks and prioritize remediation efforts effectively.
+This document serves as a **template** for conducting an application or product security assessment. The primary output of a security assessment is a comprehensive report that documents findings, recommendations, and insights into the product's security posture. This document is a critical resource for stakeholders-including developers, management, and security teams-to understand the product's security risks and prioritize remediation efforts effectively.
 
 ---
 
@@ -188,7 +188,7 @@ The **pre-assessment phase** sets the foundation for the security review by iden
 
 #### Business Context Analysis
 
-Business context analysis ensures that the security review aligns with the application’s importance, user base, and compliance requirements.
+Business context analysis ensures that the security review aligns with the application's importance, user base, and compliance requirements.
 
 - [ ] Understand the business criticality and importance of the application/service.
 - [ ] Identify the types of data processed (e.g., PII, payment data).
@@ -302,12 +302,47 @@ The infrastructure assessment evaluates the security of hardware, networks, and 
 
 ### Dependency Analysis
 
-Dependency analysis identifies risks from third-party libraries and frameworks.
+Dependency analysis identifies risks from third-party libraries and frameworks. For a deeper supply-chain-specific reference, see [`software-supply-chain-security.md`](software-supply-chain-security.md).
 
 - [ ] Review internal platforms for third-party vulnerability findings.
 - [ ] Check for known vulnerabilities in dependencies.
 - [ ] Validate API security for third-party integrations.
 - [ ] Review data sharing with third-party services (if applicable).
+- [ ] Generate an SBOM for every shipped artifact (CycloneDX or SPDX).
+- [ ] Cross-reference dependency CVEs against the [CISA Known Exploited Vulnerabilities catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog).
+- [ ] Confirm continuous SBOM analytics (e.g., [OWASP Dependency-Track](https://dependencytrack.org/)).
+- [ ] Verify build provenance and artifact signing (see [SLSA](https://slsa.dev/)).
+- [ ] For container images: pin to digests, sign with [Cosign](https://github.com/sigstore/cosign), enforce admission control.
+
+---
+
+### AI / LLM Features
+
+When the application embeds, calls, or wraps a large language model. Full reference: [`ai-llm-application-security.md`](ai-llm-application-security.md).
+
+- [ ] Document data flow with named legal entities and regions for every hop (model provider, hosting, vector store, embeddings).
+- [ ] Confirm training-data use, retention, and deletion behavior on the provider side.
+- [ ] Map the application against the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) and document mitigations per class.
+- [ ] Confirm system / user / tool messages are segregated by message channel, not by string concatenation.
+- [ ] Treat tool outputs and RAG sources as untrusted; verify indirect prompt-injection mitigations.
+- [ ] Inventory the tools the model can invoke; require human-in-the-loop confirmation for material actions.
+- [ ] Sanitize model output at the sink (shell, SQL, browser).
+- [ ] Confirm rate limits, per-user quotas, and spend caps at the gateway.
+- [ ] Confirm DPA / subprocessor disclosure covers the model provider.
+- [ ] Confirm prompt and completion logging with appropriate access controls.
+
+---
+
+### Third-Party Software Brought into the Environment
+
+When the assessment scope includes vendor-furnished agents, browser extensions, drivers, mobile apps, container images from external registries, firmware, or SaaS clients registered in the IdP. The companion [`software-approval-reference`](https://github.com/1B05H1N/software-approval-reference) repository covers this end-to-end.
+
+- [ ] Confirm each in-scope item has an Application Inventory Management (AIM) CI.
+- [ ] Confirm the TPRM gate triggered on documented conditions (paid subscription, DPA, NPI/PI flow, IdP integration, etc.).
+- [ ] Confirm browser extensions are managed by enterprise browser policy with default-deny and per-ID, per-version allowlists.
+- [ ] Confirm drivers are cross-checked against the [Microsoft Vulnerable Driver Blocklist](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/microsoft-recommended-driver-block-rules) and [LOLDrivers](https://www.loldrivers.io/).
+- [ ] Confirm reassessment cadence (annual minimum; on every version change for drivers and extensions).
+- [ ] Confirm an inventory reconciliation runs monthly across endpoint and identity sources.
 
 ---
 
@@ -504,7 +539,7 @@ Verification of compliance with relevant standards and regulations:
 
 ### Incident Response Mechanisms
 
-Evaluation of the organization’s ability to handle security incidents:
+Evaluation of the organization's ability to handle security incidents:
 
 - Recommendations for improving incident response plans.
 - Assessment of IR team readiness and awareness.
@@ -533,7 +568,7 @@ Attach supporting materials such as:
 
 A concise summary of:
 
-- The product’s overall security posture.
+- The product's overall security posture.
 - Readiness for production or deployment.
 - Next steps for improving and maintaining security.
 

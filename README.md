@@ -1,45 +1,67 @@
 # AppSec/ProdSec Reference
 
-Welcome to `appsec-prodsec-reference`! This repository is a curated collection of resources, insights, and best practices from my personal experiences in application and product security.
+Curated notes on **application** and **product** security: design, assessment, operations-adjacent engineering, supply chain, and LLM risks. Written for practitioners who want checklists and patterns, not a vendor pitch.
 
-> **Goal**: If this helps even one person enhance their security practices or knowledge, I will have achieved my objective.
+> **Goal:** If this helps someone ship safer software or pass a better interview loop, it did its job.
 
 ---
 
 ## Disclaimer
 
-> 🚨 **Important Notice:**  
-The information in this repository is based on my personal experiences and knowledge. It does **not** reflect the official policies, methodologies, or requirements of any organization—past or present—with which I am or have been associated.
+> **Important notice:**  
+> This repository reflects **personal study and practice**, not the policies, standards, or requirements of any employer, client, or school - past or present.
 
-This repository is provided **as-is**, with no guarantees of accuracy, completeness, or suitability for any specific purpose. Security is a complex and ever-changing field, and while I strive to provide accurate and useful information, errors and outdated details are possible. **Use this material at your own risk** and always validate its relevance to your unique context and requirements.  
+Material is provided **as-is**. Security changes daily; errors and stale detail are possible. **Use at your own risk** and validate against your own context. Nothing here is legal, regulatory, or HR advice.
 
 ---
 
 ## License
 
-This repository is shared under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)**.  
-
-You are free to:
-
-- **Share**: Copy and redistribute the material.
-- **Adapt**: Remix, transform, or build upon the material.
-
-Under the following terms:
-
-- **Attribution**: Provide appropriate credit and indicate any changes.
-- **Non-Commercial**: Do not use the material for commercial purposes.
-- **ShareAlike**: Distribute contributions under the same license.
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).** See [LICENSE](LICENSE).
 
 ---
 
-## Overview
+## Career context
 
-This repository serves as a practical reference for application and product security, offering guidance on secure design, development, and operational practices. It aims to support security professionals and enthusiasts by providing actionable insights and proven methods.
+Hiring is uneven, timelines are long, and many teams run on tight budgets. If you are navigating that while reading technical references, see [career-outlook.md](career-outlook.md). For resume layout ideas and a **fictional** anonymized example, see [resume-guide-and-generic-example.md](resume-guide-and-generic-example.md).
+
+---
+
+## Repository name
+
+**`appsec-prodsec-reference` still fits** this collection: it is about securing what you **build** (AppSec) and how security shows up in the **product** lifecycle (ProdSec). You do **not** need a new repository for that scope.
+
+Rename only if you want a **broader umbrella** (for example personal blog, non-security topics, or multiple programs in one repo). Renaming on GitHub preserves redirects for a time but breaks bookmarks eventually - prefer a stable name and use the [companion repo](#companion-repository) for intake.
+
+---
+
+## Contents
+
+- [secure-design-reference.md](secure-design-reference.md) - Secure design, Zero Trust, threat modeling, secure coding, IAM.
+- [application-security-assessment-template.md](application-security-assessment-template.md) - Assessment template with pre-, during-, and post-assessment checklists.
+- [security-engineer-architect-questions-with-answers.md](security-engineer-architect-questions-with-answers.md) - Interview questions with worked answers.
+- [when-interviewing-methodology.md](when-interviewing-methodology.md) - Methodology for evaluating security candidates.
+- [ai-llm-application-security.md](ai-llm-application-security.md) - LLM/AppSec addendum (OWASP LLM Top 10, NIST AI RMF, agents).
+- [software-supply-chain-security.md](software-supply-chain-security.md) - Supply chain (SBOM, signing, SLSA, OpenSSF, SCVS).
+- [security-operations-detection-engineering.md](security-operations-detection-engineering.md) - SecOps and detection engineering (logging, validation, automation).
+- [career-outlook.md](career-outlook.md) - Job market and budget context (non-advice).
+- [resume-guide-and-generic-example.md](resume-guide-and-generic-example.md) - Resume tips and a fictional example.
+- [PUBLISHING.md](PUBLISHING.md) - Optional git steps for a clean public history and tags.
+
+### Companion repository
+
+- [software-approval-reference](https://github.com/1B05H1N/software-approval-reference) - Software you **bring in** (extensions, agents, installers, inventory, intake). Includes [DISCLAIMER](https://github.com/1B05H1N/software-approval-reference/blob/main/DISCLAIMER.md) and tooling for triage.
+
+This repo centers on software you **build**; the companion centers on software you **run**.
 
 ---
 
 ## Usage
 
-Feel free to explore, fork, or clone this repository to fit your specific needs. Security practices should be tailored to your environment and objectives. Use this repository as a starting point, but validate and customize the content for your unique requirements.
+Fork or clone, then **adapt**. No single reference fits every org, regulator, or stack. Prefer small, verifiable changes over copying long policies wholesale.
 
 ---
+
+## Publishing
+
+If you mirror this work to GitHub with a scrubbed history and release tags, see [PUBLISHING.md](PUBLISHING.md).

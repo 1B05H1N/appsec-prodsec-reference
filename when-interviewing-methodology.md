@@ -9,7 +9,7 @@
 ### **Review Candidate Background**
 
 - Analyze the candidate's resume, portfolio, and any preliminary assessments or tests they've completed.
-- Tailor questions based on the candidate’s past experiences and roles.
+- Tailor questions based on the candidate's past experiences and roles.
 
 ### **Organize Question Bank**
 
@@ -67,7 +67,7 @@
 
 ### **Evaluation**
 
-- Immediately after the interview, evaluate the candidate’s:
+- Immediately after the interview, evaluate the candidate's:
   - Technical competence
   - Problem-solving abilities
   - Communication skills (focused on technical topics)
@@ -132,7 +132,7 @@ When conducting an interview, the interviewer holds significant responsibility, 
 
 ### 3. **Preparation**
 
-- Thoroughly review the candidate’s resume, job description, and prepared questions in advance.
+- Thoroughly review the candidate's resume, job description, and prepared questions in advance.
 - Understand the specific requirements of the role and the key skills necessary for success.
 
 ---
@@ -179,14 +179,14 @@ When conducting an interview, the interviewer holds significant responsibility, 
 ### 9. **Feedback**
 
 - Provide timely feedback to candidates post-interview, whether they are successful or not.
-- Offer constructive feedback when appropriate, as it can be invaluable for a candidate’s professional growth.
+- Offer constructive feedback when appropriate, as it can be invaluable for a candidate's professional growth.
 
 ---
 
 ### 10. **Documentation**
 
 - Take clear, objective notes during the interview to support the decision-making process.
-- Ensure notes are professional and focus solely on the candidate’s qualifications and responses.
+- Ensure notes are professional and focus solely on the candidate's qualifications and responses.
 
 ---
 
@@ -1027,7 +1027,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 ### 7. **In the context of cloud services, how do you manage the security vulnerabilities of dependencies and third-party services integrated with your application?**
 
 - Regularly update all dependencies to the latest version to patch known vulnerabilities.
-- Use software composition analysis tools to automatically track and analyze the application’s dependencies.
+- Use software composition analysis tools to automatically track and analyze the application's dependencies.
 - Assess the security posture of third-party services before integration and conduct regular reviews.
 - Isolate third-party services as much as possible to reduce the potential attack surface.
 
@@ -1041,10 +1041,10 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 ### 9. **How do you maintain security compliance in a cloud environment, especially concerning data security standards like GDPR, HIPAA, or PCI DSS?**
 
-- Understand Compliance Requirements Ensure you're fully aware of the specific compliance standards relevant to your application and that you understand the cloud provider’s role in compliance.
+- Understand Compliance Requirements Ensure you're fully aware of the specific compliance standards relevant to your application and that you understand the cloud provider's role in compliance.
 - Data Protection Implement strong encryption for data at rest and in transit, and manage encryption keys securely.
 - Access Controls Define strict access controls, ensuring that data is only accessible on a need-to-know basis. Regularly audit and review access permissions.
-- Residency and Sovereignty Be aware of where your data is stored and processed by your cloud provider, ensuring it doesn’t contravene data sovereignty laws.
+- Residency and Sovereignty Be aware of where your data is stored and processed by your cloud provider, ensuring it doesn't contravene data sovereignty laws.
 - Regular Audits Conduct regular security and compliance audits, and engage with third-party auditors to validate compliance.
 - Incident Response Have a well-defined incident response plan that aligns with compliance requirements for reporting breaches.
 
@@ -1215,7 +1215,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 - Look for candidates who demonstrate that they can respectfully challenge ideas, present evidence-based alternatives, and work towards a consensus.
 - Outcome-Oriented
-- Strong answers include a positive change in the project’s security posture or an important lesson learned that influenced future decisions.
+- Strong answers include a positive change in the project's security posture or an important lesson learned that influenced future decisions.
 
 ### 2. Share an experience where you were under extreme pressure to deliver a secure product within a limited timeframe. How did you manage your responsibilities and expectations?
 
@@ -1247,7 +1247,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 #### **Innovation and Proactiveness**
 
-- Look for candidates who show a proactive attitude towards security, bringing new ideas to the table. The key here is the candidate’s ability to innovate and their process for implementing change.
+- Look for candidates who show a proactive attitude towards security, bringing new ideas to the table. The key here is the candidate's ability to innovate and their process for implementing change.
 
 #### **Team Collaboration and Leadership**
 
@@ -1277,7 +1277,7 @@ var person = JsonConvert.DeserializeObject<Person>(json);
 
 #### **Resilience and Persuasion**
 
-- Look for evidence of resilience in the face of rejection, and a balanced approach to persuasion that respects differing opinions but maintains the candidate’s commitment to security principles.
+- Look for evidence of resilience in the face of rejection, and a balanced approach to persuasion that respects differing opinions but maintains the candidate's commitment to security principles.
 
 #### **Data-Driven Approach**
 

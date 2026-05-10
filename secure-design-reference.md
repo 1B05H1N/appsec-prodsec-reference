@@ -15,6 +15,16 @@ Secure design principles are foundational guidelines for designing and building 
 - [Incident Response](#incident-response)
 - [Compliance and Regulatory Requirements](#compliance-and-regulatory-requirements)
 
+## Companion references
+
+The following topic-specific references go deeper than this document on focused subjects:
+
+- [`ai-llm-application-security.md`](ai-llm-application-security.md) - design for LLM-integrated features, OWASP LLM Top 10, NIST AI RMF, prompt injection, output handling, agentic risks.
+- [`software-supply-chain-security.md`](software-supply-chain-security.md) - SBOM, signing, build provenance (SLSA), OpenSSF Scorecard, container hygiene, third-party software.
+- [`security-operations-detection-engineering.md`](security-operations-detection-engineering.md) - practical detection engineering and SecOps operations, including logging policy, telemetry validation, use-case design, and automation guardrails.
+- [`application-security-assessment-template.md`](application-security-assessment-template.md) - assessment template that operationalizes the principles in this document.
+- [`software-approval-reference`](https://github.com/1B05H1N/software-approval-reference) (companion repository) - for the security of software you bring **into** the environment (third-party agents, drivers, browser extensions, mobile apps, container images, firmware, SaaS clients).
+
 ---
 
 ## General Web Application/Product Security Checklist
@@ -904,7 +914,7 @@ API security requires a holistic approach to protect APIs, the backbone of moder
 
 #### Key Considerations
 
-- **Assets**: Identify valuable components of your system—data, resources, or devices. Anything that poses a risk upon compromise is an asset requiring protection.
+- **Assets**: Identify valuable components of your system-data, resources, or devices. Anything that poses a risk upon compromise is an asset requiring protection.
 - **Security Goals**: Define objectives to secure your assets. These goals, akin to non-functional requirements (NFRs), can be difficult to quantify but are crucial for maintaining system integrity.
 - **Environment and Threat Models**: Understand your API's operating environment and the potential threats. While absolute security is unattainable, prioritizing realistic threats helps focus efforts and address vulnerabilities effectively.
 
