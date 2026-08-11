@@ -4,11 +4,11 @@
 > does not in any way represent the required/official methodology used
 > at anywhere I've worked or currently work.
 
-## **Details**
+## Details
 
 I am providing answers for the questions listed on [Security_Architect_and_Principal_Security_Engineer_Interview_Questions](https://github.com/tadwhitaker/Security_Architect_and_Principal_Security_Engineer_Interview_Questions/blob/main/Security_Architect_and_Principal_Security_Engineer_Interview_Questions.md) and [Security_Engineer_Interview_Questions](https://github.com/tadwhitaker/Security_Engineer_Interview_Questions/blob/master/security-interview-questions.md).
 
-### **Important Note**
+### Important Note
 
 It's important to note that these answers should be tailored to the reader's experience (that's you) and the specific context of their interviews. The questions cover a wide range of security-related topics, and the responses should reflect the depth of knowledge and expertise that the reader possesses. It's essential to provide answers that not only address the questions directly but also showcase the reader's qualifications, experiences, and problem-solving abilities in the field of cybersecurity and security engineering.
 
@@ -441,7 +441,7 @@ Yes, I have experience playing Capture The Flag (CTF) competitions. CTFs are exc
 
 ### Decrypting Steganography Image
 
-Certainly, I can decrypt a steganography image. Steganography involves hiding information within another file. I would use steganalysis techniques and tools to reveal the hidden content.
+Yes - steganography involves hiding information within another file. I would use steganalysis techniques and tools to reveal the hidden content.
 
 ### Decrypting an IP-Based Phone Message
 

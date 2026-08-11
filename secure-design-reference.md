@@ -42,7 +42,7 @@ The following topic-specific references go deeper than this document on focused 
 11. Encourage password managers and discourage password reuse among employees.
 12. Enable Multi-Factor Authentication (MFA) wherever feasible.
 13. Avoid hardcoding sensitive information and leaving sensitive details in comments.
-14. Leverage the built-in security features of your framework (e.g., encryption, session management, input sanitization) instead of creating custom solutions.
+14. Use the built-in security features of your framework (e.g., encryption, session management, input sanitization) instead of creating custom solutions.
 15. Keep your framework up to date; technical debt equals security debt.
 16. Log all errors securely (avoid logging sensitive data); trigger alerts for security-related errors.
 17. Perform server-side input validation and sanitization using an allowlist approach.
@@ -128,7 +128,7 @@ The Zero Trust model is a security concept where no entity, whether internal or 
 3. **Improved Compliance**:
    - Meets regulatory data protection requirements.
 4. **Scalability**:
-   - Adapts to cloud environments and remote work seamlessly.
+   - Adapts to cloud environments and remote work.
 
 ---
 
@@ -986,7 +986,7 @@ Building secure applications requires a proactive and holistic approach that int
 
 The evolving threat landscape demands constant vigilance, adaptability, and collaboration across teams to stay ahead of potential vulnerabilities. Secure coding practices, rigorous testing, and adherence to frameworks and best practices are not just technical imperatives but essential to maintaining trust, compliance, and operational integrity.
 
-Remember, security is not a one-time effort but a continuous journey. By fostering a culture of security awareness and prioritizing proactive measures, we can build applications that stand resilient against modern threats while delivering seamless and reliable experiences to users.
+Security is not a one-time effort. Building a culture of security awareness and prioritizing proactive measures helps applications stay resilient against modern threats.
 
 ---
 

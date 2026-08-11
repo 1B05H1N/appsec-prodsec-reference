@@ -79,7 +79,7 @@ For an existing assessment template (see [`application-security-assessment-templ
 
 ### Architecture and data flow
 
-- [ ] Documented data flow showing user → application → model provider → response → application → user.
+- [ ] Documented data flow showing user -> application -> model provider -> response -> application -> user.
 - [ ] Named legal entities and regions at every hop (model provider, hosting provider, vector store provider, embedding provider).
 - [ ] Documented training-data use, retention, and deletion behavior on the model provider's side.
 - [ ] Subprocessor disclosure aligned to the application's DPA / privacy notice.
