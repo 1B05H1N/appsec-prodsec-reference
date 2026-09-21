@@ -42,6 +42,7 @@ It's important to note that these answers should be tailored to the reader's exp
   4. Application receives an authorization token.
   5. Application requests access token.
   6. Application uses access token to request user data.
+- **Interview add-on**: For **public clients** (mobile apps, SPAs), expect questions on **PKCE** (proof key for code exchange) to reduce authorization-code interception risk, plus tight **redirect URI** registration and **state** for CSRF binding where applicable.
 
 ### 5. Public Key Infrastructure (PKI) Flow
 
@@ -52,20 +53,20 @@ It's important to note that these answers should be tailored to the reader's exp
   3. Upon validation, the CA issues a digital certificate.
   4. The digital certificate is used to establish secure communications.
 
-### 6. Synchronous vs Asynchronous Encryption
+### 6. Symmetric vs Asymmetric Encryption
 
-- **Synchronous Encryption**: In synchronous encryption, the same key is used for encryption and decryption.
-- **Asynchronous Encryption**: In asynchronous encryption (more commonly known as asymmetric encryption), two different keys (public and private) are used.
+- **Symmetric encryption**: The same secret key encrypts and decrypts. Fast for bulk data; key distribution is the hard problem.
+- **Asymmetric encryption**: A public/private key pair. Common uses include key exchange, signing, and wrapping symmetric keys. Slower for large payloads, so protocols often use asymmetric methods to establish a symmetric session key.
 
-### 7. SSL Handshake
+### 7. TLS handshake (often still called "SSL handshake" in interviews)
 
-- **Purpose**: Establishes a secure session over HTTPS.
-- **Process**:
-  1. Client Hello: Browser sends cryptographic information.
-  2. Server Hello: Server responds with its cryptographic information.
-  3. Authentication and Pre-Master Secret: Server sends a certificate and secret.
-  4. Decryption and Master Secret: Browser decrypts and sends confirmation.
-  5. Secure Symmetric Encryption Established: Communication is encrypted.
+- **Purpose**: Negotiate protocol version and ciphers, authenticate the server (and sometimes the client), derive session keys, then encrypt application data with symmetric cryptography.
+- **Note**: SSL is legacy; production systems should use **TLS** (1.2+; **1.3** preferred where supported). TLS 1.3 trims round trips and restricts weaker options compared with older versions.
+- **High-level flow (classic picture)**:
+  1. ClientHello: supported versions/ciphers/groups.
+  2. ServerHello: chosen parameters; server certificate; key exchange material.
+  3. Key derivation: both sides derive shared secrets and session keys.
+  4. Finished messages: verify handshake integrity; then record-layer encryption for HTTP and other application data.
 
 ### 8. HMAC
 
@@ -95,8 +96,9 @@ It's important to note that these answers should be tailored to the reader's exp
 
 ### 13. Compressing and Encrypting a File
 
-- **Order**: Compress first, then encrypt.
-- **Reason**: Compression reduces redundancy in data, which makes encryption more effective as encryption randomizes data.
+- **Typical order for file or blob packaging**: compress, then encrypt.
+- **Why**: Strong encryption outputs data that looks high-entropy; compressing **after** encryption usually does little. Compressing **before** encryption can reduce size for storage and bandwidth.
+- **Caveat**: Compression **before** encryption can enable some attack classes in **online** protocols when an attacker can influence plaintext (historical examples around TLS compression and some HTTP contexts). For static files at rest, the risk model differs; still avoid sharing oracle-like behavior across trust boundaries without analysis.
 
 ### 14. Message Authentication
 
@@ -192,8 +194,8 @@ It's important to note that these answers should be tailored to the reader's exp
 #### 16. **TCP vs UDP**
 
 - **TCP (Transmission Control Protocol)**: Provides reliable, ordered, and error-checked delivery of data.
-- **UDP (User Datagram Protocol)**: Provides a simpler but less reliable service, without error checking.
-- **Security Implication**: TCP is generally more secure due to its connection-oriented nature, making it more resilient to data loss and errors.
+- **UDP (User Datagram Protocol)**: Connectionless datagram service; no built-in reliability or ordering.
+- **Security framing**: Neither protocol is "more secure" by itself. Security comes from TLS (for example **QUIC** over UDP), application crypto, access control, and correct protocol design. TCP's statefulness affects firewall and DDoS surface differently than UDP, but that is operational nuance, not automatic safety.
 
 #### 17. **TCP Three-Way Handshake**
 
@@ -1072,11 +1074,11 @@ To stop the spread of an infected host on a network, isolate the host, conduct a
 
 ### PodSecurityPolicy Usage
 
-**Optimum Answer**: PodSecurityPolicy (PSP) in Kubernetes is used to define security policies for pods, enforcing controls like running containers as non-root, limiting privilege escalation, and controlling container capabilities.
+**Optimum Answer**: **PodSecurityPolicy (PSP) was deprecated** and removed in favor of maintained mechanisms. In modern clusters, discuss **Pod Security Admission** (built-in, namespace labels/levels), **admission controllers** (OPA/Gatekeeper, Kyverno), and **security contexts** on pods and containers (runAsNonRoot, readOnlyRootFilesystem, drop capabilities, seccomp/AppArmor/SELinux where available). If legacy PSP appears in an older environment, treat it as migration debt.
 
 ### Kubernetes Cluster Security
 
-**Optimum Answer**: Kubernetes cluster security involves RBAC for access control, network policies for segmentation, container image scanning, runtime security with tools like Falco, secure configurations, regular updates, admission controllers, and PodSecurityPolicies.
+**Optimum Answer**: Kubernetes cluster security involves RBAC for access control, network policies for segmentation, container image scanning and provenance, runtime security with tools like Falco, secure configurations, regular updates, admission controllers, Pod Security Admission (or equivalent policy engines), secrets handling (prefer external secret stores), and audit logging.
 
 ### Data Separation in Kubernetes for PCI
 
@@ -1089,3 +1091,57 @@ To stop the spread of an infected host on a network, isolate the host, conduct a
 ### Security Observations from Diagram (idk what the diagram looks like)
 
 **Optimum Answer**: Reviewing the diagram reveals the need for strong network segmentation, well-defined access controls, encrypted data in transit and at rest, redundancy and failover mechanisms, and regular security assessments and incident response procedures.
+
+---
+
+## Addendum: topics that often appear in recent loops
+
+Short answers you can expand with your own tooling and war stories. See also [software-supply-chain-security.md](software-supply-chain-security.md) and [ai-llm-application-security.md](ai-llm-application-security.md) in this repo.
+
+### What is an SBOM, and why do teams ask for it?
+
+- **Answer**: A **Software Bill of Materials** is a machine-readable inventory of components (libraries, packages, containers) in a product or service. It speeds **vulnerability response** (match SBOM entries to CVEs), **license** review, and **incident** scoping. Common formats include **CycloneDX** and **SPDX**. It does not replace patching or architecture review; it makes those jobs measurable.
+
+### How does SLSA relate to supply chain security?
+
+- **Answer**: **SLSA** (Supply-chain Levels for Software Artifacts) is a framework of **levels** describing how much you trust **build provenance** and **tamper resistance**. Higher levels expect stronger controls on source, build systems, and artifact integrity. Interviewers often want you to connect it to **signed attestations**, **reproducible or auditable builds**, and **policy at deploy time** (admission control, deployment gates).
+
+### What is Sigstore / Cosign in one minute?
+
+- **Answer**: **Sigstore** is an ecosystem for signing and verifying artifacts (often OCI images) using short-lived keys and transparency ideas. **Cosign** is a common CLI for key management, signing, and verification. Typical story: CI signs an image; production only runs images that verify against your trust policy.
+
+### Explain SSRF and mitigations
+
+- **Answer**: **Server-Side Request Forgery** tricks a server into issuing requests you control to internal or restricted targets (metadata endpoints, admin interfaces). Mitigations: **strict URL allowlists** and parsers, **block private/link-local ranges** where appropriate, **disable unnecessary URL schemes**, **network egress controls**, and **no raw passthrough** of user-controlled hosts. Cloud metadata SSRF is a classic test case.
+
+### Explain IDOR
+
+- **Answer**: **Insecure Direct Object Reference** is a failure to enforce **object-level authorization** (user A can fetch user B's record by changing an ID). Fix with **server-side checks** on every sensitive action, **opaque identifiers**, consistent **authorization middleware**, and tests that **cross tenant/user** boundaries.
+
+### How do you talk about prompt injection for LLM-integrated apps?
+
+- **Answer**: Treat **prompt injection** as **untrusted input influencing model behavior**, not classic shell SQL injection. Mitigations are layered: **trust boundaries** between retrieval and action, **tool allowlists**, **human approval** for high-impact operations, **output encoding** and policy for what the model may return, **logging** and **rate limits**, and **red-team** scenarios for data exfil via the model. See OWASP LLM Top 10 categories (for example LLM01 prompt injection) for vocabulary.
+
+### Purple team vs red team in a job interview sentence
+
+- **Answer**: **Red** simulates adversaries to find gaps. **Purple** is coordinated **red + blue** (detection/response) to **measure**, **tune**, and **prove** control effectiveness with shared learning. Many shops run purple-style **tabletops** and **detection validation** even without a formal red team.
+
+### What is Zero Trust in practice (not marketing)?
+
+- **Answer**: **No implicit trust** based on network location alone. Every access decision uses **identity**, **device posture**, **resource sensitivity**, and **telemetry**, with **least privilege** and **segmentation**. It implies investments in **IdP**, **MFA**, **device inventory**, **logging**, and **policy engines**, not only "VPN replacement."
+
+### SameSite cookies: why do interviewers mention them?
+
+- **Answer**: **SameSite** reduces **cross-site** cookie sending on navigations and posts, which helps with **CSRF** class issues for cookie-based sessions. It is not a full CSRF strategy by itself; pair with **tokens**, **Origin/Referer checks**, and correct **CORS** design.
+
+### Content Security Policy (CSP) in one breath
+
+- **Answer**: **CSP** is a browser-enforced policy that restricts where scripts, styles, and other resources may load from. It reduces **XSS** impact when applied strictly (often with **nonces** or **hashes** for scripts). Expect tradeoffs with third-party scripts and tag managers.
+
+### Cloud object storage "public bucket" class of issues
+
+- **Answer**: Misconfigured **ACLs/policies** expose objects to the internet. Controls: **deny-by-default** IAM, **block public access** account settings where appropriate, **inventory** and **continuous config checks** (CSPM), **encryption** and **logging** (data events), and **least privilege** for CI and human roles that mutate bucket policy.
+
+### Detection engineering: what is a mature answer?
+
+- **Answer**: Beyond "write Sigma rules," discuss **use-case lifecycle** (hypothesis, data, logic, test, deploy, tune, retire), **false positive** budgeting, **MITRE ATT&CK** mapping for coverage communication, **unit tests** or replay for rules, **version control**, **ownership**, and **metrics** (noise, latency, true positive rate, time to detect).
