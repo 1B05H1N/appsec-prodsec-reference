@@ -139,6 +139,8 @@ Test in an authorized environment with synthetic data, canary records, and contr
 
 Record each scenario's attacker objective, model and application versions, policy configuration, inputs, attempts, outcomes, and evidence. Define valid attempts before testing, record exclusions and reasons, and repeat probabilistic tests. Report the attack success rate: attempts that achieve the defined attacker objective divided by valid attempts. Require zero unauthorized access or actions in the tested cases and track failures of legitimate workflows separately. Retest after changes to models, prompts, tools, data, permissions, or provider settings. Passing tests reduces uncertainty; it does not prove prompt injection is eliminated.
 
+For a deterministic, provider-independent fixture covering tenant isolation, retrieved instructions, tool authorization, and audit-data minimization, see the [AI application security lab](https://github.com/1B05H1N/ai-application-security-lab). It demonstrates application control boundaries; it is not a real-model robustness benchmark.
+
 ---
 
 ## Observability and incident response
