@@ -140,6 +140,12 @@ This checklist provides a high-level overview of the components that should be i
 
 ---
 
+### AI and ML Features Checklist Item (If Applicable)
+
+- [ ] Review AI data flows, model and tool access, adversarial testing, and incident response using the [AI/ML checklist](#ai--llm-features).
+
+---
+
 ### Infrastructure Assessment Checklist Items
 
 - [ ] **Secure Configuration and Hardening**:
@@ -318,18 +324,18 @@ Dependency analysis identifies risks from third-party libraries and frameworks. 
 
 ### AI / LLM Features
 
-When the application embeds, calls, or wraps a large language model. Full reference: [`ai-llm-application-security.md`](ai-llm-application-security.md).
+Use the applicable items when the application uses a model, retrieval, or an agent. Record evidence and mark absent components as not applicable. Full reference: [`ai-llm-application-security.md`](ai-llm-application-security.md).
 
-- [ ] Document data flow with named legal entities and regions for every hop (model provider, hosting, vector store, embeddings).
-- [ ] Confirm training-data use, retention, and deletion behavior on the provider side.
-- [ ] Map the application against the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) and document mitigations per class.
-- [ ] Confirm system / user / tool messages are segregated by message channel, not by string concatenation.
-- [ ] Treat tool outputs and RAG sources as untrusted; verify indirect prompt-injection mitigations.
-- [ ] Inventory the tools the model can invoke; require human-in-the-loop confirmation for material actions.
-- [ ] Sanitize model output at the sink (shell, SQL, browser).
-- [ ] Confirm rate limits, per-user quotas, and spend caps at the gateway.
-- [ ] Confirm DPA / subprocessor disclosure covers the model provider.
-- [ ] Confirm prompt and completion logging with appropriate access controls.
+- [ ] Document model, provider, data, identity, retrieval, and tool flows, including regions and trust boundaries.
+- [ ] Review provider data use, retention, deletion, subprocessors, contracts, and applicable privacy obligations.
+- [ ] Map relevant scenarios to the [OWASP LLM 2026](https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/) and [agentic 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) guidance; record mitigations and residual risk.
+- [ ] Verify retrieval, caches, and memory enforce user and tenant permissions, including after access revocation or deletion.
+- [ ] Treat prompts, retrieved content, and tool outputs as untrusted; verify that authorization and other critical controls do not depend on model instructions.
+- [ ] Inventory tool and MCP permissions. Require action-specific approval for material operations and recheck authorization at execution.
+- [ ] Validate model output and use safe handling for its destination, such as parameterized SQL and browser output encoding; do not pass generated text directly to a shell.
+- [ ] Review model, dataset, and dependency provenance and integrity where available; assess unknowns for hosted models.
+- [ ] Test user, tenant, and run limits for model consumption, tool calls, time, and cost.
+- [ ] Review privacy-preserving telemetry, adversarial and authorized-path test results, incident response, and rollback or disablement.
 
 ---
 

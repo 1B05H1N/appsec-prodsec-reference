@@ -1,6 +1,6 @@
 # AppSec/ProdSec Reference
 
-Curated notes on **application** and **product** security: design, assessment, operations-adjacent engineering, supply chain, and LLM risks. Written for practitioners who want checklists and patterns, not a vendor pitch.
+Curated notes on **application** and **product** security: design, assessment, operations-adjacent engineering, supply chain, and AI/ML risks. Written for practitioners who want checklists and patterns, not a vendor pitch.
 
 > **Goal:** If this helps someone ship safer software or pass a better interview loop, it did its job.
 
@@ -41,7 +41,7 @@ Rename only if you want a **broader umbrella** (for example personal blog, non-s
 - [application-security-assessment-template.md](application-security-assessment-template.md) - Assessment template with pre-, during-, and post-assessment checklists.
 - [security-engineer-architect-questions-with-answers.md](security-engineer-architect-questions-with-answers.md) - Interview questions with worked answers.
 - [when-interviewing-methodology.md](when-interviewing-methodology.md) - Methodology for evaluating security candidates.
-- [ai-llm-application-security.md](ai-llm-application-security.md) - LLM/AppSec addendum (OWASP LLM Top 10, NIST AI RMF, agents).
+- [ai-llm-application-security.md](ai-llm-application-security.md) - AI/ML security, LLM applications, retrieval, agents and MCP, testing, and incident response.
 - [software-supply-chain-security.md](software-supply-chain-security.md) - Supply chain (SBOM, signing, SLSA, OpenSSF, SCVS).
 - [security-operations-detection-engineering.md](security-operations-detection-engineering.md) - SecOps and detection engineering (logging, validation, automation).
 - [career-outlook.md](career-outlook.md) - Job market and budget context (non-advice).

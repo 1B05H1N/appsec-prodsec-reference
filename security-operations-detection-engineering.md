@@ -79,6 +79,18 @@ If an event category matters for an alert or investigation, it belongs in the ca
 
 ---
 
+## AI feature telemetry and response
+
+When AI features use retrieval or tools, extend the event catalog with model and configuration changes, retrieval and authorization decisions, tool requests and outcomes, approvals, and quota events. Correlate these with the request or run, user, tenant, and model version where available.
+
+- Use metadata by default; do not collect full prompts, completions, documents, or tool payloads without a documented need, restricted access, and retention controls.
+- Start with actionable detections, such as repeated denied retrievals, an attempted unapproved external destination, or reuse of an approval. Tune against normal behavior and investigate before attributing intent.
+- Give responders a way to disable an affected tool or integration, revoke its credentials, preserve appropriate evidence, and remove poisoned content. Exercise the process with the feature owner.
+
+See the [AI observability and incident response guidance](ai-llm-application-security.md#observability-and-incident-response) for additional context.
+
+---
+
 ## Verify "what should be logged" is actually logged
 
 Stated logging requirements are meaningless without verification.

@@ -19,7 +19,7 @@ Secure design principles are foundational guidelines for designing and building 
 
 The following topic-specific references go deeper than this document on focused subjects:
 
-- [`ai-llm-application-security.md`](ai-llm-application-security.md) - design for LLM-integrated features, OWASP LLM Top 10, NIST AI RMF, prompt injection, output handling, agentic risks.
+- [`ai-llm-application-security.md`](ai-llm-application-security.md) - AI/ML threat modeling, LLM output handling, retrieval, agent and MCP controls, and security testing.
 - [`software-supply-chain-security.md`](software-supply-chain-security.md) - SBOM, signing, build provenance (SLSA), OpenSSF Scorecard, container hygiene, third-party software.
 - [`security-operations-detection-engineering.md`](security-operations-detection-engineering.md) - practical detection engineering and SecOps operations, including logging policy, telemetry validation, use-case design, and automation guardrails.
 - [`application-security-assessment-template.md`](application-security-assessment-template.md) - assessment template that operationalizes the principles in this document.

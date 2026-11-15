@@ -36,7 +36,7 @@ The term covers more than `npm install` outputs:
 - **Artifact distribution** - registries, package repositories, signing infrastructure.
 - **Runtime dependencies** - base images, OS packages, system libraries.
 - **Vendor-furnished code** - third-party agents, drivers, browser extensions, embedded SDKs.
-- **AI components** - model weights, embeddings, fine-tuned adapters.
+- **AI components** - model providers, weights, adapters, tokenizers, embedding models, datasets, inference runtimes, and agent tools.
 
 Each layer has its own provenance, its own attack surface, and its own attestation pattern.
 
@@ -207,10 +207,13 @@ For an existing assessment template (see [`application-security-assessment-templ
 
 ### AI / model components (when applicable)
 
-- [ ] Model weights provenance and hash recorded.
-- [ ] Model card and license on file.
-- [ ] Embeddings and adapters from trusted sources; signed where the publisher provides signing.
-- [ ] Inference runtime treated as a normal application - see [`ai-llm-application-security.md`](ai-llm-application-security.md).
+- [ ] Providers, model versions, weights, adapters, tokenizers, runtimes, and agent tools inventoried; unavailable provenance documented as a risk.
+- [ ] Immutable versions or digests recorded where available and verified against trusted expected values; signatures or attestations checked when provided.
+- [ ] Model cards, dataset sources, and applicable licenses reviewed; training and feedback data changes controlled.
+- [ ] Untrusted serialized models and custom loading code isolated from privileged environments.
+- [ ] Inference runtimes patched and access-controlled, with a plan to disable or roll back a compromised component.
+
+Integrity and provenance do not establish that a model or dataset is safe. For retrieval, provider, and evaluation controls, see [`ai-llm-application-security.md`](ai-llm-application-security.md).
 
 ---
 

@@ -1120,7 +1120,15 @@ Short answers you can expand with your own tooling and war stories. See also [so
 
 ### How do you talk about prompt injection for LLM-integrated apps?
 
-- **Answer**: Treat **prompt injection** as **untrusted input influencing model behavior**, not classic shell SQL injection. Mitigations are layered: **trust boundaries** between retrieval and action, **tool allowlists**, **human approval** for high-impact operations, **output encoding** and policy for what the model may return, **logging** and **rate limits**, and **red-team** scenarios for data exfil via the model. See OWASP LLM Top 10 categories (for example LLM01 prompt injection) for vocabulary.
+- **Answer**: Prompt injection is untrusted content influencing model behavior, including content retrieved from documents or tools. Message roles and delimiters help organize context but do not enforce a security boundary. Enforce data access, tool permissions, and output handling outside the model; test whether an injected instruction can cause unauthorized access or actions. OWASP calls this LLM01 in its 2026 LLM guidance.
+
+### How would you secure retrieval for an AI assistant?
+
+- **Answer**: Derive user and tenant scope on the server, enforce document-level permissions during retrieval, and check results before they reach a reranker or model. Apply the same rules to caches and memory, propagate revocations and deletions, and test cross-user and cross-tenant access. Treat retrieved content and model-generated citations as untrusted.
+
+### What makes an AI agent's tool access safer?
+
+- **Answer**: Give it narrow tools and least-privilege identities, then authorize each action at the tool or downstream service. Require approval bound to the exact high-impact action and recheck permissions at execution. Restrict network destinations, set run limits, log security-relevant metadata, and test injection, approval replay, and normal authorized use.
 
 ### Purple team vs red team in a job interview sentence
 
