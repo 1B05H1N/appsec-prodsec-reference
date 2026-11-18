@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive guide to machine learning and RAG for security engineers.">
+  <title>From Gradients to RAG | AppSec/ProdSec Reference</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="guide-core.js"></script>
+  <script defer src="guide.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+      <a class="back-link" href="https://github.com/1B05H1N/appsec-prodsec-reference">AppSec/ProdSec Reference</a>
+      <p class="eyebrow">A working guide for a security engineer</p>
+      <h1>From Gradients to RAG</h1>
+      <p class="lead">Learn how models are trained, how language models use data, and where security boundaries belong. Experiment with synthetic data as you go.</p>
+      <div class="hero-notes"><span>8 steps</span><span>Interactive exercises</span><span>No accounts or model API</span></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav aria-label="Guide steps">
+        <p class="nav-title">Steps</p>
+        <ol>
+          <li><a href="#model">What a model is</a></li>
+          <li><a href="#descent">Gradient descent</a></li>
+          <li><a href="#networks">Neural networks</a></li>
+          <li><a href="#llm">Language models</a></li>
+          <li><a href="#embeddings">Embeddings</a></li>
+          <li><a href="#rag">RAG</a></li>
+          <li><a href="#attacks">Where attacks land</a></li>
+          <li><a href="#next">Check and keep going</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <main id="content">
+      <noscript><p class="notice">The guide is readable without JavaScript. Enable it to run the interactive demos.</p></noscript>
+      <p class="intro">Many machine-learning models learn by predicting with their current parameters, measuring error with a loss, computing gradients, and updating the parameters. The trained model is then used for inference; it does not normally retrain for each answer.</p>
+      <div class="process" aria-label="Training loop">
+        <span>Predict</span><span>Measure loss</span><span>Compute gradient</span><span>Update, repeat</span>
+      </div>
+
+      <section id="model" class="chapter">
+        <p class="step-number">Step 01</p>
+        <h2>A model is a function with dials</h2>
+        <p>A model maps an input to an output using adjustable numbers called <strong>parameters</strong> or <strong>weights</strong>. Training searches for values that perform well on examples; the resulting model can then make predictions on new inputs.</p>
+        <p>Our running example uses synthetic telematics data: hard-braking events per 100 miles as the input and a made-up risk score as the output. A straight-line model has a slope <code>w</code> and an intercept <code>b</code>:</p>
+        <pre><code>predicted_risk = w * braking_events + b
+loss = mean((predicted - actual)²)</code></pre>
+        <p>This loss is <strong>mean squared error</strong>: it averages squared prediction errors. Squaring makes positive and negative errors contribute positively and gives larger misses more weight.</p>
+        <div class="definition-grid">
+          <div><strong>Model</strong><p>A function and its parameters. Here it is a line; other models have many more parameters.</p></div>
+          <div><strong>Loss</strong><p>A number used to measure error or another training objective on a set of examples.</p></div>
+          <div><strong>Optimizer</strong><p>A rule for adjusting parameters, often using gradients to reduce the loss.</p></div>
+        </div>
+        <div class="demo" aria-labelledby="model-demo-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="model-demo-title">Turn the model's dials</h3></div><span class="badge">Illustrative values</span></div>
+          <p>Change an input or parameter to see the line's prediction. These numbers do not represent a real insurance risk model.</p>
+          <div class="three-sliders">
+            <label for="model-x">Braking events <output id="model-x-value">4.0</output><input id="model-x" type="range" min="0" max="10" step="0.5" value="4"></label>
+            <label for="model-w">Slope w <output id="model-w-value">4.0</output><input id="model-w" type="range" min="-2" max="10" step="0.5" value="4"></label>
+            <label for="model-b">Intercept b <output id="model-b-value">10.0</output><input id="model-b" type="range" min="-8" max="28" step="0.5" value="10"></label>
+          </div>
+          <p id="model-prediction" class="demo-status" aria-live="polite">Enable JavaScript to calculate the prediction.</p>
+        </div>
+        <h3>Four ways models learn from data</h3>
+        <ul>
+          <li><strong>Supervised:</strong> learn from examples with labels, such as a claim marked fraudulent or not fraudulent.</li>
+          <li><strong>Unsupervised:</strong> find structure in data without labels, such as groups of similar records.</li>
+          <li><strong>Self-supervised:</strong> derive a training target from the data itself, such as predicting a missing or next token.</li>
+          <li><strong>Reinforcement learning:</strong> learn from feedback or rewards for actions. Some chat models use human-preference feedback in a later training stage.</li>
+        </ul>
+        <p class="security"><strong>Security angle</strong> The model, training data, labels, and evaluation data are separate assets. Access to any of them can affect the behavior or confidentiality of the resulting system.</p>
+      </section>
+
+      <section id="descent" class="chapter">
+        <p class="step-number">Step 02</p>
+        <h2>Gradient descent: walk downhill on the loss</h2>
+        <p>Every pair of <code>w</code> and <code>b</code> produces a loss. Picture a surface whose height is that loss. The <strong>gradient</strong> points uphill at the current position; gradient descent steps in the opposite direction. The <strong>learning rate</strong> controls the size of the step.</p>
+        <pre><code>w = w - learning_rate * dLoss/dw
+b = b - learning_rate * dLoss/db
+
+For mean squared error:
+dLoss/dw = 2 * mean((predicted - actual) * x)
+dLoss/db = 2 * mean(predicted - actual)</code></pre>
+
+        <div class="demo" aria-labelledby="gradient-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="gradient-title">Fit a line by gradient descent</h3></div><span class="badge">24 synthetic drivers</span></div>
+          <p>Orange is the current line; the thin lines show its errors. The loss surface uses the same data. The cross marks the least-squares minimum.</p>
+          <div class="charts">
+            <figure><figcaption>Model and observations</figcaption><canvas id="line-chart" width="520" height="300" role="img" aria-label="Scatter plot of synthetic drivers, fitted line, and prediction errors.">Chart requires canvas support.</canvas><small>Horizontal: braking events per 100 miles. Vertical: risk score.</small></figure>
+            <figure><figcaption>Loss surface</figcaption><canvas id="loss-chart" width="520" height="300" role="img" aria-label="Loss surface with optimization path and the least-squares minimum. Use the slope and intercept inputs to set a starting point.">Chart requires canvas support.</canvas><small>Darker means lower loss. Horizontal: slope. Vertical: intercept. Click to set a start, or use the fields below.</small></figure>
+          </div>
+          <div class="demo-controls">
+            <label class="range-control" for="learning-rate">Learning rate <output id="rate-value" for="learning-rate">0.012</output><input id="learning-rate" type="range" min="0.001" max="0.05" step="0.001" value="0.012"></label>
+            <div class="input-pair">
+              <label for="start-w">Starting slope <input id="start-w" type="number" min="-2" max="10" step="any" value="0"></label>
+              <label for="start-b">Starting intercept <input id="start-b" type="number" min="-8" max="28" step="any" value="0"></label>
+              <button id="set-start" type="button" class="secondary">Set start</button>
+            </div>
+            <div class="button-row">
+              <button id="gradient-step" type="button">Step</button>
+              <button id="gradient-run" type="button">Run</button>
+              <button id="gradient-reset" type="button" class="secondary">Reset</button>
+            </div>
+          </div>
+          <div class="metrics">
+            <div><span>Steps</span><strong id="step-count">0</strong></div>
+            <div><span>Slope w</span><strong id="current-w">0</strong></div>
+            <div><span>Intercept b</span><strong id="current-b">0</strong></div>
+            <div><span>Loss</span><strong id="current-loss">—</strong></div>
+          </div>
+          <p id="gradient-message" class="demo-status" role="status">Use Step or Run to start.</p>
+          <ol class="try-list">
+            <li>Run at <strong>0.012</strong>. It approaches the valley quickly, then moves more slowly along it.</li>
+            <li>Reset, choose <strong>0.040</strong>, and run. The steps overshoot and the loss grows: <strong>divergence</strong>.</li>
+            <li>The loss is more sensitive to the slope than the intercept. Feature scaling can help make optimization better conditioned.</li>
+          </ol>
+        </div>
+
+        <h3>What changes at scale</h3>
+        <ul>
+          <li>Models may have millions or billions of parameters. The same gradient idea applies, although the loss surface is not visible.</li>
+          <li><strong>Stochastic gradient descent</strong> estimates an update from a small batch rather than the whole dataset. An <strong>epoch</strong> is a full pass through the training data.</li>
+          <li>Optimizers such as Adam adapt updates per parameter. They can help with uneven scales, but do not guarantee convergence or replace feature and learning-rate choices.</li>
+        </ul>
+        <p class="security"><strong>Security angle</strong> An attacker can use a gradient with respect to the <em>input</em> to search for a perturbation that changes a prediction. A gradient gives a local direction; it does not by itself guarantee the smallest possible change.</p>
+      </section>
+
+      <section id="networks" class="chapter">
+        <p class="step-number">Step 03</p>
+        <h2>Neural networks and backpropagation</h2>
+        <p>A straight line has limited expressive power. A neural network combines weighted sums with nonlinear <strong>activations</strong>, such as ReLU: <code>max(0, z)</code>. Stacking layers lets the model represent much more complex relationships.</p>
+        <figure class="network-figure">
+          <svg viewBox="0 0 600 190" role="img" aria-labelledby="network-label">
+            <title id="network-label">Two inputs connected to three hidden units, connected to one output</title>
+            <g class="network-lines"><path d="M75 65 L290 30 M75 65 L290 95 M75 65 L290 160 M75 125 L290 30 M75 125 L290 95 M75 125 L290 160 M290 30 L525 95 M290 95 L525 95 M290 160 L525 95"></path></g>
+            <g class="network-nodes"><circle cx="75" cy="65" r="13"></circle><circle cx="75" cy="125" r="13"></circle><circle cx="290" cy="30" r="13"></circle><circle cx="290" cy="95" r="13"></circle><circle cx="290" cy="160" r="13"></circle><circle cx="525" cy="95" r="13"></circle></g>
+          </svg>
+          <figcaption>Inputs → hidden units → output. Connections carry weights; biases are omitted from this sketch.</figcaption>
+        </figure>
+        <p><strong>Backpropagation</strong> applies the chain rule backward through the network to compute gradients of the loss with respect to its trainable parameters. Libraries such as PyTorch automate this calculation.</p>
+        <div class="demo" aria-labelledby="network-demo-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="network-demo-title">Trace a gradient backward</h3></div><span class="badge">One hidden unit</span></div>
+          <p>For input <code>x = 2</code> and target <code>5</code>, this toy network calculates <code>z = x * w1 + bias</code>, <code>hidden = ReLU(z)</code>, and <code>prediction = hidden * w2</code>. Change the weights and bias to see the squared loss and its gradients.</p>
+          <div class="three-sliders">
+            <label for="neuron-w1">Input weight w1 <output id="neuron-w1-value">1.5</output><input id="neuron-w1" type="range" min="-2" max="3" step="0.1" value="1.5"></label>
+            <label for="neuron-bias">Hidden bias <output id="neuron-bias-value">0.0</output><input id="neuron-bias" type="range" min="-3" max="3" step="0.1" value="0"></label>
+            <label for="neuron-w2">Output weight w2 <output id="neuron-w2-value">1.0</output><input id="neuron-w2" type="range" min="-2" max="3" step="0.1" value="1"></label>
+          </div>
+          <div class="metrics neuron-metrics">
+            <div><span>Hidden value</span><strong id="neuron-hidden">—</strong></div>
+            <div><span>Prediction</span><strong id="neuron-prediction">—</strong></div>
+            <div><span>Loss</span><strong id="neuron-loss">—</strong></div>
+            <div><span>dLoss/dw1</span><strong id="neuron-dw1">—</strong></div>
+            <div><span>dLoss/dw2</span><strong id="neuron-dw2">—</strong></div>
+          </div>
+          <p id="neuron-message" class="demo-status" aria-live="polite">Enable JavaScript to trace the calculation.</p>
+          <p>Make <code>z</code> negative: ReLU outputs zero, so the gradient through that unit is zero. At exactly zero, ReLU is not differentiable; this demo uses zero as a subgradient.</p>
+        </div>
+        <h3>Training is not the goal. Generalizing is.</h3>
+        <p>A model is useful when it performs on data it has not seen. One sign of <strong>overfitting</strong> is training loss falling while held-out validation loss rises. Validation, appropriate data, regularization, and careful evaluation help; none is a complete guarantee.</p>
+        <p class="security"><strong>Security angle</strong> Models can leak training information. Membership inference may reveal whether a record was used in training, and some language models can reproduce memorized text. Risk depends on the model, data, and attacker access.</p>
+      </section>
+
+      <section id="llm" class="chapter">
+        <p class="step-number">Step 04</p>
+        <h2>How a language model produces text</h2>
+        <p>Many large language models are trained to predict a next token from preceding context. Generation repeats that prediction, adding one token at a time.</p>
+        <ol>
+          <li><strong>Tokenize:</strong> split text into tokens, often word pieces. The split depends on the tokenizer.</li>
+          <li><strong>Embed:</strong> represent tokens as learned vectors, with position information.</li>
+          <li><strong>Transform:</strong> transformer layers refine the representations. In attention, a token's query is compared with keys for permitted context positions; the resulting weights mix the corresponding value vectors.</li>
+          <li><strong>Predict:</strong> produce a raw score, or <strong>logit</strong>, for each candidate token. Softmax converts scores into probabilities; a decoding strategy chooses the next token.</li>
+        </ol>
+        <p>Pretraining often uses a next-token objective over a large corpus. Additional instruction tuning and preference tuning, including methods such as RLHF, may shape behavior. Models and training pipelines differ.</p>
+        <div class="demo" aria-labelledby="temperature-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="temperature-title">Temperature and token selection</h3></div><span class="badge">Illustrative scores</span></div>
+          <p>Complete “Your claim was …” using four fixed logits. This demonstrates a probability distribution, not an actual language model.</p>
+          <label class="range-control" for="temperature">Temperature <output id="temperature-value" for="temperature">1.00</output><input id="temperature" type="range" min="0.10" max="2.50" step="0.05" value="1"></label>
+          <div id="probabilities" class="probabilities" aria-live="polite">Enable JavaScript to calculate probabilities.</div>
+          <p><code>softmax(logit / temperature)</code> sharpens the distribution below 1 and flattens it above 1. Temperature zero is not defined by this formula; greedy decoding selects the highest-scoring token directly.</p>
+        </div>
+        <h3>Context is not an authorization boundary</h3>
+        <p>The context can include system messages, conversation, retrieved passages, and tool results. Providers often encode role markers or structured messages and train models to respect instruction hierarchies. Those labels help, but they do not reliably prevent untrusted text from influencing behavior.</p>
+        <p class="security"><strong>Security angle</strong> Prompt injection exploits the model's treatment of untrusted instructions as authority. Delimiters and prompts help with clarity, but permissions, tool controls, output handling, and egress restrictions must be enforced outside the model.</p>
+      </section>
+
+      <section id="embeddings" class="chapter">
+        <p class="step-number">Step 05</p>
+        <h2>Embeddings: meaning as a position in space</h2>
+        <p>An embedding model maps text, images, or other inputs to vectors. Useful embeddings often place related items near one another according to a chosen similarity measure. Dimensions in a learned embedding usually do not have simple human-readable labels.</p>
+        <p>Some embedding models use <strong>contrastive training</strong>: matched pairs are encouraged to be closer and mismatched pairs farther apart. Other training objectives exist. No single vector or metric captures every aspect of meaning.</p>
+        <pre><code>cosine(a, b) = (a · b) / (|a| * |b|)</code></pre>
+        <p>Cosine measures the angle between nonzero vectors: 1 is the same direction, 0 is orthogonal, and −1 is opposite direction. These numbers do not have universal semantic meanings. For unit-length vectors, cosine equals their dot product.</p>
+        <div class="demo" aria-labelledby="embedding-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="embedding-title">Search by vector similarity</h3></div><span class="badge">Hand-built, 5 dimensions</span></div>
+          <p>Change the query values and plot axes. The plot is a two-dimensional slice; the ranking always uses <strong>all five dimensions</strong>. These toy vectors are not produced by a trained embedding model.</p>
+          <div class="embedding-layout">
+            <div class="sliders" id="vector-inputs">
+              <label for="dim-0">Collision <output id="dim-value-0">0.85</output><input id="dim-0" type="range" min="0" max="1" step="0.05" value="0.85"></label>
+              <label for="dim-1">Payment <output id="dim-value-1">0.05</output><input id="dim-1" type="range" min="0" max="1" step="0.05" value="0.05"></label>
+              <label for="dim-2">Fraud <output id="dim-value-2">0.05</output><input id="dim-2" type="range" min="0" max="1" step="0.05" value="0.05"></label>
+              <label for="dim-3">Weather <output id="dim-value-3">0.05</output><input id="dim-3" type="range" min="0" max="1" step="0.05" value="0.05"></label>
+              <label for="dim-4">Coverage <output id="dim-value-4">0.30</output><input id="dim-4" type="range" min="0" max="1" step="0.05" value="0.30"></label>
+            </div>
+            <figure><figcaption>Query and documents</figcaption><canvas id="vector-chart" width="520" height="300" role="img" aria-label="Two-dimensional projection of the query and document vectors. The ranked list gives full five-dimensional similarity.">Chart requires canvas support.</canvas>
+              <div class="axis-controls"><label for="axis-x">Across <select id="axis-x"></select></label><label for="axis-y">Up <select id="axis-y"></select></label></div>
+              <small>The orange star is the query. A close-looking point can rank lower because of dimensions not shown.</small>
+            </figure>
+          </div>
+          <h4>Ranked using all dimensions</h4>
+          <ol id="vector-ranking" class="ranking" aria-live="polite"><li>Enable JavaScript to rank the vectors.</li></ol>
+        </div>
+        <h3>Searching many vectors</h3>
+        <p>Exact search compares the query with eligible vectors. At larger scales, <strong>approximate nearest neighbor</strong> (ANN) indexes can be faster but may miss true neighbors. HNSW uses a layered graph; IVF groups vectors and searches selected groups. Measure recall and latency for the actual workload.</p>
+        <p class="security"><strong>Security angle</strong> Embeddings are not automatically anonymous. Research has recovered information, and sometimes text, from some embeddings under particular conditions. Classify and protect vectors, indexes, caches, and their source data according to their sensitivity.</p>
+      </section>
+
+      <section id="rag" class="chapter">
+        <p class="step-number">Step 06</p>
+        <h2>RAG: retrieve first, then generate</h2>
+        <p>Retrieval-augmented generation retrieves passages at question time and supplies them as context to a model. This can make current or private information available without retraining, but neither a retrieved passage nor a citation guarantees a correct answer.</p>
+        <div class="pipeline">
+          <p><strong>Indexing</strong> Load → clean → chunk → embed → store vectors, text, provenance, and access metadata</p>
+          <p><strong>Answering</strong> Authenticate → authorize search → retrieve → recheck access → rerank → build context → generate and cite</p>
+        </div>
+        <h3>Choices that affect quality and access</h3>
+        <ul>
+          <li><strong>Chunking:</strong> balance context against retrieval precision. Start with sensible paragraph or heading boundaries and measure.</li>
+          <li><strong>Hybrid search:</strong> combine lexical search, such as BM25, with vectors. Exact policy numbers or error codes may need lexical matching.</li>
+          <li><strong>Reranking:</strong> a more expensive model can rescore a limited candidate set. Only authorized content may reach it.</li>
+          <li><strong>Access:</strong> derive permissions from trusted identity, constrain the search or index, and recheck results before any reranker or model sees them. Recheck cached and saved results after access changes.</li>
+          <li><strong>Evaluation:</strong> measure retrieval, such as recall at k, separately from answer quality and faithfulness to sources.</li>
+        </ul>
+        <div class="demo" aria-labelledby="rag-title">
+          <div class="demo-heading"><div><p class="demo-label">Interactive demo</p><h3 id="rag-title">Run a retrieval</h3></div><span class="badge">Fictional insurer · 8 chunks</span></div>
+          <p>Harbor Mutual is fictional. This example computes word-count TF-IDF in your browser: it matches words, not meaning. No model is called; the last panel previews the context that <em>would</em> be sent to one.</p>
+          <form id="rag-form">
+            <label for="rag-query">Question<textarea id="rag-query" rows="2" maxlength="500">Is my payment past due?</textarea></label>
+            <div class="rag-controls">
+              <label for="rag-user">Signed in as<select id="rag-user"><option value="dana">Dana (customer)</option><option value="lee">Lee (customer)</option><option value="mira">Mira (adjuster)</option></select></label>
+              <label for="rag-k">Top k <output id="rag-k-value" for="rag-k">3</output><input id="rag-k" type="range" min="1" max="8" value="3"></label>
+            </div>
+            <label class="checkbox" for="rag-filter"><input id="rag-filter" type="checkbox" checked> Filter by permission before scoring</label>
+            <button type="submit">Run retrieval</button>
+          </form>
+          <p id="rag-summary" class="demo-status" role="status">Enable JavaScript to run the retrieval.</p>
+          <h4>1. Query terms</h4><p id="rag-terms" class="terms">—</p>
+          <h4>2. Every chunk</h4>
+          <div class="table-wrap"><table><thead><tr><th scope="col">Chunk</th><th scope="col">Access</th><th scope="col">Score</th><th scope="col">Selected</th></tr></thead><tbody id="rag-scores"></tbody></table></div>
+          <h4>3. Context preview</h4><pre id="rag-prompt" class="prompt">No model is called.</pre>
+          <ol class="try-list">
+            <li>As Dana, ask “Is my payment past due?” Turn the filter off: Lee's matching payment can enter the context.</li>
+            <li>Ask “When does a claim go to fraud review?” A customer's filtered search excludes the internal adjuster note.</li>
+            <li>Ask “hail damage.” The public FAQ is authorized but contains an injected instruction. Access control does not make content trustworthy.</li>
+          </ol>
+          <p class="notice"><strong>Important:</strong> All eight records and the filter run in your browser for illustration. A real system must enforce authorization in trusted server-side components; a client-side checkbox cannot protect data.</p>
+        </div>
+        <p class="security"><strong>Security angle</strong> Similarity does not establish entitlement. Apply access controls before protected content reaches other components, and assume permitted documents may still be malicious.</p>
+      </section>
+
+      <section id="attacks" class="chapter">
+        <p class="step-number">Step 07</p>
+        <h2>Where attacks land on the mechanics</h2>
+        <p>Controls depend on the attacker, data, and deployment. The measures below reduce risk; none alone proves a system safe.</p>
+        <div class="demo">
+          <p class="demo-label">Interactive exercise</p>
+          <label for="attack-select">Explore a mechanic <select id="attack-select"></select></label>
+          <p id="attack-detail" class="demo-status" aria-live="polite">Enable JavaScript to explore the table.</p>
+        </div>
+        <div class="table-wrap"><table id="attack-table">
+          <thead><tr><th scope="col">Mechanic</th><th scope="col">Attack</th><th scope="col">Why it works</th><th scope="col">Controls to consider</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Gradients</th><td>Adversarial inputs</td><td>Input gradients can guide small changes that alter a prediction.</td><td>Adversarial testing; independent controls for consequential decisions.</td></tr>
+            <tr><th scope="row">Training data</th><td>Poisoning and backdoors</td><td>Compromised examples can influence learned behavior.</td><td>Data provenance, ingestion access controls, trigger-focused evaluation.</td></tr>
+            <tr><th scope="row">Memorization</th><td>Membership inference and extraction</td><td>Behavior can reveal details about training examples.</td><td>Minimize sensitive training data; assess privacy, output exposure, and retention.</td></tr>
+            <tr><th scope="row">Queries and outputs</th><td>Model extraction</td><td>Repeated queries can help approximate model behavior.</td><td>Authentication, rate limits, monitoring, and appropriately limited outputs.</td></tr>
+            <tr><th scope="row">Embeddings</th><td>Inversion</td><td>Vectors can retain information about their sources.</td><td>Protect and delete vectors and indexes according to data sensitivity.</td></tr>
+            <tr><th scope="row">Retrieval</th><td>Cross-tenant disclosure</td><td>Relevance scores do not encode user permissions.</td><td>Trusted search constraints and authorization checks before downstream access.</td></tr>
+            <tr><th scope="row">Context</th><td>Indirect prompt injection</td><td>Untrusted instructions can influence the model despite role labels.</td><td>Least-privilege tools, independent authorization, approvals, and restricted egress.</td></tr>
+            <tr><th scope="row">Sampling</th><td>Unreliable one-off tests</td><td>Model outputs can vary across attempts.</td><td>Repeat defined tests; record valid attempts, success rates, and legitimate-task failures.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="next" class="chapter">
+        <p class="step-number">Step 08</p>
+        <h2>Check yourself, then keep going</h2>
+        <div class="quiz">
+          <details><summary>Why can a learning rate that is too high make training diverge?</summary><p>Steps can overshoot the minimum repeatedly. For the quadratic in the demo, a sufficiently large rate makes the oscillations grow rather than shrink.</p></details>
+          <details><summary>What does backpropagation compute?</summary><p>Gradients of the loss with respect to trainable parameters by applying the chain rule backward through the computation.</p></details>
+          <details><summary>How might you notice overfitting?</summary><p>Training loss keeps falling while held-out validation loss rises. Compare behavior on representative unseen data, not only the training set.</p></details>
+          <details><summary>What is a logit, and what does temperature do?</summary><p>A logit is a raw candidate score. For positive temperatures, dividing logits by temperature before softmax sharpens or flattens the sampling distribution.</p></details>
+          <details><summary>How can an embedding model learn that sentences are related?</summary><p>One approach is contrastive training on related and unrelated pairs. Embedding models can also use other objectives.</p></details>
+          <details><summary>When are cosine similarity and dot product equal?</summary><p>When both vectors have unit length. Cosine is undefined for a zero vector.</p></details>
+          <details><summary>What can an ANN index trade away?</summary><p>Recall: faster approximate search may miss actual nearest neighbors. The tradeoff depends on the index and its settings.</p></details>
+          <details><summary>When must RAG authorization be enforced?</summary><p>Before protected content reaches a reranker, model, or user. Constrain the trusted search or index and recheck results; trimming a top-k set later can also reduce recall.</p></details>
+          <details><summary>Why does the filter not stop the poisoned FAQ?</summary><p>The FAQ is authorized for the user but contains untrusted instructions. Limit what the model can do, enforce tool authorization independently, and restrict outbound channels.</p></details>
+        </div>
+
+        <h3>A path for the next few weeks</h3>
+        <ul>
+          <li><a href="https://www.3blue1brown.com/topics/neural-networks">3Blue1Brown: Neural Networks</a> — visual intuition for neural networks, gradients, and transformers.</li>
+          <li><a href="https://karpathy.ai/zero-to-hero.html">Andrej Karpathy: Neural Networks: Zero to Hero</a> — build small neural networks and language models in Python.</li>
+          <li><a href="https://jalammar.github.io/illustrated-transformer/">Jay Alammar: The Illustrated Transformer</a> and <a href="https://jalammar.github.io/illustrated-word2vec/">The Illustrated Word2vec</a> — visual explanations of attention and embeddings.</li>
+          <li><a href="https://developers.google.com/machine-learning/crash-course">Google: Machine Learning Crash Course</a> — exercises on training and evaluation.</li>
+          <li><a href="https://course.fast.ai/">fast.ai: Practical Deep Learning for Coders</a> — a practical introduction to building models.</li>
+        </ul>
+        <h3>A weekend build</h3>
+        <ol>
+          <li>Reimplement the gradient descent example in Python or NumPy and compare the loss to the analytic solution.</li>
+          <li>Embed a small set of synthetic or personal notes with a local model. Do not use work or other sensitive data.</li>
+          <li>Retrieve by cosine similarity, then build a prompt for an approved model. Consider provider retention and data-use terms before sending anything.</li>
+          <li>Plant an instruction in a permitted note and add a second user's private notes. Test what reaches the model without filtering, then enforce permissions and tool limits. Record the results and remaining risks.</li>
+        </ol>
+        <h3>Words you will hear</h3>
+        <dl class="glossary">
+          <dt>Parameter / weight</dt><dd>A value adjusted during training.</dd>
+          <dt>Loss / gradient / learning rate</dt><dd>The training objective, its local direction of change, and the update size.</dd>
+          <dt>Batch / epoch</dt><dd>A subset used for an update / a full pass over the training data.</dd>
+          <dt>Activation</dt><dd>A nonlinear function applied within a network.</dd>
+          <dt>Token / logit / softmax</dt><dd>A text unit / a raw candidate score / a way to turn scores into probabilities.</dd>
+          <dt>Attention</dt><dd>A mechanism for weighting and mixing information from context positions.</dd>
+          <dt>Embedding / cosine similarity</dt><dd>A vector representation / similarity based on the angle between nonzero vectors.</dd>
+          <dt>ANN / HNSW / IVF</dt><dd>Approximate nearest-neighbor search / a graph-based method / a cluster-based method.</dd>
+          <dt>Chunk / BM25 / hybrid search</dt><dd>An indexed passage / a lexical scoring method / a combination of lexical and vector search.</dd>
+          <dt>Reranker / fine-tuning</dt><dd>A model that rescores candidates / further training of an existing model.</dd>
+        </dl>
+        <h3>Security references</h3>
+        <ul>
+          <li><a href="https://csrc.nist.gov/pubs/ai/100/2/e2025/final">NIST: Adversarial Machine Learning taxonomy</a></li>
+          <li><a href="https://arxiv.org/abs/1610.05820">Shokri et al.: Membership Inference Attacks against Machine Learning Models</a></li>
+          <li><a href="https://arxiv.org/abs/2310.06816">Morris et al.: Text Embeddings Reveal (Almost) As Much As Text</a></li>
+          <li><a href="https://github.com/1B05H1N/appsec-prodsec-reference/blob/main/ai-llm-application-security.md">AI and LLM application security reference</a> and <a href="https://github.com/1B05H1N/ai-application-security-lab">AI application security lab</a></li>
+        </ul>
+        <p class="security"><strong>Security angle</strong> A passing toy exercise is not evidence that a deployed model or application resists attack. Test the actual data, identity boundaries, tools, and deployment with authorized, controlled scenarios.</p>
+      </section>
+      <footer>
+        <p>All demo data is synthetic; Harbor Mutual is fictional. The demos run in your browser and make no network or model requests. External resource links lead to their respective sites.</p>
+        <p><a href="https://github.com/1B05H1N/appsec-prodsec-reference">AppSec/ProdSec Reference</a> · <a href="https://github.com/1B05H1N/appsec-prodsec-reference/blob/main/LICENSE">License</a></p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

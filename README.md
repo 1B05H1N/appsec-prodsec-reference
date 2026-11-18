@@ -42,6 +42,7 @@ Rename only if you want a **broader umbrella** (for example personal blog, non-s
 - [security-engineer-architect-questions-with-answers.md](security-engineer-architect-questions-with-answers.md) - Interview questions with worked answers.
 - [when-interviewing-methodology.md](when-interviewing-methodology.md) - Methodology for evaluating security candidates.
 - [ai-llm-application-security.md](ai-llm-application-security.md) - AI/ML security, LLM applications, retrieval, agents and MCP, testing, and incident response.
+- [From Gradients to RAG](https://1b05h1n.github.io/appsec-prodsec-reference/) - Interactive ML and RAG fundamentals for security engineers; [offline instructions](docs/README.md).
 - [software-supply-chain-security.md](software-supply-chain-security.md) - Supply chain (SBOM, signing, SLSA, OpenSSF, SCVS).
 - [security-operations-detection-engineering.md](security-operations-detection-engineering.md) - SecOps and detection engineering (logging, validation, automation).
 - [career-outlook.md](career-outlook.md) - Job market and budget context (non-advice).

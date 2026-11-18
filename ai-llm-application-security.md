@@ -10,6 +10,8 @@ AI features add models, data pipelines, and sometimes autonomous tools to an app
 
 This reference covers LLM applications, retrieval, agents, and common security concerns for other machine learning systems. Use it with [`secure-design-reference.md`](secure-design-reference.md), [`application-security-assessment-template.md`](application-security-assessment-template.md), and [`software-supply-chain-security.md`](software-supply-chain-security.md).
 
+For the underlying ML and retrieval concepts, see [From Gradients to RAG](https://1b05h1n.github.io/appsec-prodsec-reference/), an interactive guide using synthetic data. [Offline instructions](docs/README.md) are available.
+
 ---
 
 ## Authoritative references
